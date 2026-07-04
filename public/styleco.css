@@ -1,0 +1,124 @@
+/* --- الإعدادات العامة --- */
+:root {
+    --primary: #ff7a00;
+    --dark: #0f172a;
+    --card-bg: #1e293b;
+    --text: #ffffff;
+    --white: #ffffff;
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- الهيدر (رأس الصفحة) --- */
+.site-header {
+    padding: 15px 0;
+    border-bottom: 1px solid #334155;
+    background: var(--dark);
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.brand-logo { width: 45px; height: auto; }
+.brand-name { display: block; font-weight: bold; font-size: 1.1rem; }
+.brand-subtitle { font-size: 0.75rem; color: var(--primary); letter-spacing: 1px; }
+
+.back-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* --- قسم البطاقات --- */
+.contact-page {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.contact-page-hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* التخطيط المتجاوب للبطاقات */
+.contact-page-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.contact-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.contact-card:hover { transform: translateY(-5px); }
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.contact-icon svg { width: 28px; height: 28px; }
+
+/* ألوان الأيقونات */
+.icon-orange { background: rgba(255, 122, 0, 0.15); color: var(--primary); }
+.icon-green { background: rgba(0, 200, 83, 0.15); color: #00c853; }
+.icon-blue { background: rgba(0, 150, 255, 0.15); color: #0096ff; }
+.icon-purple { background: rgba(156, 39, 176, 0.15); color: #9c27b0; }
+.icon-linkedin { background: rgba(0, 119, 181, 0.15); color: #0077b5; }
+
+/* تنسيق الأزرار الصغيرة والأنيقة */
+.card-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: auto;
+    transition: 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+/* ربط لون الزر بنفس لون الأيقونة */
+.card-btn.icon-orange { background: var(--primary); color: white; }
+.card-btn.icon-green { background: #00c853; color: white; }
+.card-btn.icon-blue { background: #0096ff; color: white; }
+.card-btn.icon-purple { background: #9c27b0; color: white; }
+.card-btn.icon-linkedin { background: #0077b5; color: white; }
+
+.card-btn:hover { filter: brightness(1.2); }
