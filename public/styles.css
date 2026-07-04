@@ -330,7 +330,7 @@
             background: rgba(30, 41, 59, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: var(--radius-md);
-            padding: 40px 20px;
+            padding:20px;
             margin-bottom: 40px;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -338,9 +338,10 @@
 
         .products-grid {
             
-	display: flex;
+	display: grid;
+   
     /* تحديد 3 أعمدة متساوية في الشاشات الكبيرة، وتنتقل لعمودين أو واحد في الصغير */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 0fr));
     gap: 10px; /* زيادة المسافة بين العناصر لتعطي شكلاً احترافياً */
     justify-items: center; /* لضمان تمركز البطاقات في منتصف مساحتها */
     align-items: stretch; /* لضمان تساوي ارتفاع جميع البطاقات */
