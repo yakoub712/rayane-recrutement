@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - RAYANE TAPIS</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<div class="login-container">
+
+  <div class="logo-section">
+    <img src="../04a2f3eb-8599-47e1-9579-78458bc10f6a.png" alt="Logo">
+    <h1>RAYANE TAPIS</h1>
+    <p>ESPACE ADMINISTRATION</p>
+  </div>
+
+  <form class="login-form" id="loginForm">
+
+   
+
+    <input type="email" id="email" placeholder="Adresse e-mail" required>
+
+    <input type="password" id="password" placeholder="Mot de passe" required>
+
+    <button type="submit">Se connecter</button>
+
+    <p id="message"></p>
+
+  </form>
+
+</div>
+
+<script>const form = document.getElementById("loginForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const message = document.getElementById("message");
+
+  try {
+    const res = await fetch("http://localhost:3000/api/admin/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if (data.token) {
+      message.style.color = "green";
+      message.textContent = "Login réussi...";
+
+      // تعديل هنا: حفظ المفتاح باسم adminToken ليتوافق مع لوحة التحكم
+      localStorage.setItem("adminToken", data.token);
+
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 1000);
+
+    } else {
+      message.style.color = "red";
+      message.textContent = data.message;
+    }
+
+  } catch (err) {
+    message.style.color = "red";
+    message.textContent = "Erreur serveur";
+  }
+});
+</script>
+
+</body>
+</html>
