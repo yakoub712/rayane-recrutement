@@ -103,7 +103,7 @@ body {
 
 /* تنسيق الأزرار الصغيرة والأنيقة */
 .card-btn {
-    padding: 8px 16px;
+    padding: 11px 17px;
     border-radius: 6px;
     text-decoration: none;
     font-size: 0.85rem;
@@ -122,3 +122,4 @@ body {
 .card-btn.icon-linkedin { background: #0077b5; color: white; }
 
 .card-btn:hover { filter: brightness(1.2); }
+
