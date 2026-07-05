@@ -976,3 +976,53 @@
   border-radius: 12px;
   margin-bottom: 15px;
 }
+@media (max-width: 600px) {
+  .nav {
+    flex-wrap: wrap; /* السماح للعناصر بالنزول لسطر جديد إذا ضاقت الشاشة */
+    justify-content: center; /* توسيط العناصر */
+    gap: 15px;
+  }
+  
+  /* إذا أردت إخفاء النص وإظهار الأيقونات فقط في الهواتف الصغيرة جداً */
+  .nav-link span {
+    font-size: 14px;
+  }
+}
+
+/* الشاشات الكبيرة: عرض أفقي عادي */
+.nav-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-btn {
+  display: none; /* إخفاء الزر في الشاشات الكبيرة */
+}
+
+/* الهاتف: عند عرض أقل من 768px */
+@media (max-width: 768px) {
+  .menu-btn {
+    display: block; /* إظهار الزر */
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .nav-menu {
+    display: none; /* إخفاء القائمة افتراضياً في الهاتف */
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* المسافة من الأعلى تحت الـ Navbar */
+    left: 0;
+    width: 100%;
+    background-color: #0d1b2a;
+    padding: 20px;
+  }
+
+  /* هذا الكلاس سيتم إضافته بواسطة JavaScript */
+  .nav-menu.active {
+    display: flex;
+  }
+}
