@@ -8,7 +8,7 @@ const jobIdentifier = document.getElementById('jobIdentifier');
 async function fetchAndDisplayOffers() {
     const container = document.getElementById('offersContainer');
     try {
-        const response = await fetch('http://localhost:3000/api/offers');
+        const response = await fetch('/api/offers');
         const offers = await response.json();
         
         if (!offers || offers.length === 0) {
