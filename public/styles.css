@@ -336,27 +336,45 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
-        .products-grid {
-            
-	display: grid;
-   
-    /* تحديد 3 أعمدة متساوية في الشاشات الكبيرة، وتنتقل لعمودين أو واحد في الصغير */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 0fr));
-    gap: 10px; /* زيادة المسافة بين العناصر لتعطي شكلاً احترافياً */
-    justify-items: center; /* لضمان تمركز البطاقات في منتصف مساحتها */
-    align-items: stretch; /* لضمان تساوي ارتفاع جميع البطاقات */
-    padding: 0px;
-        }
+      .products-grid {
+    display: grid;
+    /* التعديل هنا: استخدمنا 1fr لتوزيع المساحة المتاحة بالتساوي */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* زيادة المسافة قليلاً لتفادي التلاصق */
+    gap: 20px; 
+    justify-items: center;
+    align-items: stretch;
+    padding: 20px; /* أضفنا padding للحاوية لكي لا تلتصق البطاقات بالحواف */
+}
 
-        .product-card {
-            background: rgba(15, 23, 42, 0.6);
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
+
+
+.product-card {
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* لضمان أن البطاقة تأخذ كامل المساحة المتاحة في عمودها */
+    max-width: 400px; /* لمنع البطاقات من أن تصبح عريضة جداً في الشاشات الكبيرة */
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#mainProductsGrid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap: 20px !important;
+    justify-items: center; /* يضمن توسيط البطاقات في الشاشات الكبيرة */
+}
+
+.product-card {
+    width: 100%; /* البطاقة تأخذ كامل عرض العمود المخصص لها */
+    max-width: 350px; /* لا تجعل البطاقة عريضة جداً */
+    display: flex;
+    flex-direction: column;
+}
+
 
         .product-card:hover {
             transform: translateY(-6px);

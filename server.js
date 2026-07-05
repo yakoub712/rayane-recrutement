@@ -4,70 +4,68 @@ const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
 
-// إضافات أمنية
-const helmet = require("helmet"); 
-const rateLimit = require("express-rate-limit");
-const mongoSanitize = require("express-mongo-sanitize");
-
 const app = express();
 
 // =====================
-// 1. إجراءات أمنية (Security Middleware)
+// 1. MIDDLEWARE
 // =====================
-
-// حماية الـ HTTP Headers (إخفاء نوع السيرفر، حماية من XSS)
-app.use(helmet());
-
-// تقييد عدد الطلبات من نفس الـ IP (حماية من DDoS و Brute Force)
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 دقيقة
-    max: 100, // الحد الأقصى 100 طلب لكل IP في الـ 15 دقيقة
-    message: "Too many requests, please try again later."
-});
-app.use("/api/", limiter); 
-
-// حماية ضد NoSQL Injection (تنظيف البيانات من رموز MongoDB الخبيثة)
-app.use(mongoSanitize());
-
-// إعداد CORS (قيدها بنطاق موقعك فقط مستقبلاً)
 app.use(cors());
-
-// تحديد حجم الطلبات (حماية من إغراق الذاكرة بطلبات ضخمة)
-app.use(express.json({ limit: '10kb' })); 
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 
 // =====================
 // 2. ROUTES
 // =====================
 const offerRoutes = require("./routes/offerRoutes");
+app.use("/api/offers", offerRoutes);
 const candidatureRoutes = require("./routes/candidatureRoutes");
+app.use("/api/candidatures", candidatureRoutes);
+app.use("/api/admin", require("./routes/adminRoutes"));
+
 const productRoutes = require('./routes/productRoutes');
 
-app.use("/api/offers", offerRoutes);
-app.use("/api/candidatures", candidatureRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/admin", require("./routes/adminRoutes"));
+// 2. ابحث عن السطر الخاص بـ offers وقم بإضافة هذا السطر تحته:
+app.use('/api/offers', offerRoutes); 
+app.use('/api/products', productRoutes);
 
 // =====================
 // 3. STATIC FILES
 // =====================
 app.use(express.static("public"));
 app.use("/admin", express.static("admin"));
-
-// ملاحظة: إذا انتقلت كلياً لـ Cloudinary، يمكنك حذف هذا السطر لاحقاً
+// 👈 السطر الجديد المطلوب لعرض صور الـ CV في الداشبورد بنجاح
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); 
 
 // =====================
-// 4. DATABASE
+// 4. PAGES
 // =====================
-mongoose.connect(process.env.MONGODB_URI)
-.then(() => console.log("MongoDB Connected"))
-.catch((err) => console.error("MongoDB Error:", err));
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.get("/admin", (req, res) => {
+    res.sendFile(path.join(__dirname, "admin", "login.html"));
+});
 
 // =====================
-// 5. SERVER START
+// 5. DATABASE
 // =====================
-const PORT = process.env.PORT || 3000;
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => {
+    console.log("MongoDB Connected");
+})
+.catch((err) => {
+    console.error("MongoDB Error:", err);
+});
+
+
+
+// ❌ تم حذف دالة /api/applications القديمة المسببة للمشاكل هنا لأن العمل سينتقل لملف Routes المخصص لها
+
+// =====================
+// 6. SERVER START
+// =====================
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
