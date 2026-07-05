@@ -78,7 +78,7 @@ async function submitApplication(event) {
     formData.append('cvImage', cvFile); // يطابق حقل استقبال الملف السحابي تماماً لقاعدة البيانات
 
     try {
-        const response = await fetch('http://localhost:3000/api/candidatures', {
+        const response = await fetch('/api/candidatures', {
             method: 'POST',
             body: formData 
         });
