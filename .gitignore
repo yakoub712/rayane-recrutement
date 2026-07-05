@@ -1,0 +1,11 @@
+# المجلدات التي لا يجب رفعها
+node_modules/
+uploads/
+
+# ملفات البيئة الحساسة
+.env
+
+# ملفات النظام
+.DS_Store
+*.log
+npm-debug.log*
