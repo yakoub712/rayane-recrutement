@@ -47,7 +47,7 @@ function switchSection(sectionName) {
 async function loadCandidatures() {
     const container = document.getElementById('candidaturesContainer');
     try {
-        const response = await fetch('http://localhost:3000/api/candidatures');
+        const response = await fetch('/api/candidatures');
         const list = await response.json();
         
         if(!list || list.length === 0) {
@@ -98,7 +98,7 @@ async function loadCandidatures() {
 
 async function updateStatus(id, newStatus) {
     try {
-        const response = await fetch(`http://localhost:3000/api/candidatures/${id}/status`, {
+        const response = await fetch(`/api/candidatures/${id}/status`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status: newStatus })
@@ -110,7 +110,7 @@ async function updateStatus(id, newStatus) {
 async function deleteCandidature(id) {
     if (confirm("Voulez-vous vraiment supprimer définitivement cette candidature ?")) {
         try {
-            const response = await fetch(`http://localhost:3000/api/candidatures/${id}`, { method: 'DELETE' });
+            const response = await fetch(`/api/candidatures/${id}`, { method: 'DELETE' });
             if (response.ok) { alert("Candidature supprimée !"); loadCandidatures(); }
         } catch (error) { console.error(error); }
     }
@@ -127,7 +127,7 @@ imageInput.addEventListener('change', () => {
 const adminOffersContainer = document.getElementById('adminOffersContainer');
 async function loadAdminOffers() {
     try {
-        const response = await fetch('http://localhost:3000/api/offers');
+        const response = await fetch('/api/offers');
         const offers = await response.json();
         if(!offers || offers.length === 0) { adminOffersContainer.innerHTML = "<p>Aucune offre en ligne.</p>"; return; }
         
@@ -147,7 +147,7 @@ async function loadAdminOffers() {
 async function deleteOffer(id) {
     if (confirm("Voulez-vous vraiment supprimer cette offre ?")) {
         try {
-            const response = await fetch(`http://localhost:3000/api/offers/${id}`, { method: 'DELETE' });
+            const response = await fetch(`/api/offers/${id}`, { method: 'DELETE' });
             if (response.ok) { loadAdminOffers(); }
         } catch (error) { console.error(error); }
     }
@@ -164,7 +164,7 @@ document.getElementById('offerForm').addEventListener('submit', async (e) => {
     formData.append('image', imageInput.files[0]);
     
     try {
-        const response = await fetch('http://localhost:3000/api/offers', { method: 'POST', body: formData });
+        const response = await fetch('/api/offers', { method: 'POST', body: formData });
         if (response.ok) { 
             document.getElementById('offerForm').reset(); 
             preview.style.display = 'none'; 
@@ -190,7 +190,7 @@ productImageInput.addEventListener('change', () => {
 const adminProductsContainer = document.getElementById('adminProductsContainer');
 async function loadAdminProducts() {
     try {
-        const response = await fetch('http://localhost:3000/api/products');
+        const response = await fetch('/api/products');
         const products = await response.json();
         if(!products || products.length === 0) { adminProductsContainer.innerHTML = "<p>Aucune image de produit en ligne.</p>"; return; }
         
@@ -209,7 +209,7 @@ async function loadAdminProducts() {
 async function deleteProduct(id) {
     if (confirm("Voulez-vous vraiment supprimer cette image de produit ?")) {
         try {
-            const response = await fetch(`http://localhost:3000/api/products/${id}`, { method: 'DELETE' });
+            const response = await fetch(`/api/products/${id}`, { method: 'DELETE' });
             if (response.ok) { loadAdminProducts(); }
         } catch (error) { console.error(error); }
     }
@@ -225,7 +225,7 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
     formData.append('image', productImageInput.files[0]);
     
     try {
-        const response = await fetch('http://localhost:3000/api/products', { method: 'POST', body: formData });
+        const response = await fetch('/api/products', { method: 'POST', body: formData });
         if (response.ok) { 
             document.getElementById('productForm').reset(); 
             productPreview.style.display = 'none'; 
